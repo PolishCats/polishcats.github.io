@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog educativo sobre Matematicas y Fisica - Derivadas, Integrales, Leyes de Newton y Movimiento Parabolico">
+  <title>Blog Educativo - Matematicas y Fisica</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#333;line-height:1.6}
+    a{color:#667eea;text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Header */
+    .site-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:40px 20px;text-align:center}
+    .site-header h1{font-size:2.4rem;margin-bottom:8px;letter-spacing:1px}
+    .site-header p{font-size:1.1rem;opacity:.9}
+
+    /* Navigation */
+    .nav-bar{background:#fff;border-bottom:3px solid #667eea;padding:0 20px;display:flex;gap:4px;overflow-x:auto}
+    .nav-bar a{display:inline-block;padding:14px 18px;font-weight:600;color:#555;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px}
+    .nav-bar a:hover,.nav-bar a.active{color:#667eea;border-bottom-color:#667eea;text-decoration:none}
+
+    /* Layout */
+    .container{max-width:1200px;margin:0 auto;padding:30px 20px;display:grid;grid-template-columns:1fr 320px;gap:30px}
+    @media(max-width:900px){.container{grid-template-columns:1fr}}
+
+    /* Article card */
+    .card{background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08);margin-bottom:30px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+    .card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.13)}
+    .card-header{padding:28px 28px 0}
+    .card-header .tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
+    .tag-math{background:#e8f4fd;color:#1a73e8}
+    .tag-physics{background:#fce8e8;color:#d93025}
+    .card-header h2{font-size:1.6rem;color:#222;margin-bottom:8px}
+    .card-header .meta{font-size:.85rem;color:#888;margin-bottom:16px}
+    .card-body{padding:0 28px 28px}
+    .card-body p{margin-bottom:16px;color:#444}
+
+    /* Formula box */
+    .formula{background:#f8f9ff;border-left:4px solid #667eea;border-radius:0 8px 8px 0;padding:14px 18px;margin:18px 0;font-family:'Courier New',monospace;font-size:.95rem;color:#333;overflow-x:auto}
+    .formula strong{color:#764ba2}
+
+    /* Video container */
+    .video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin:20px 0;background:#000}
+    .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+    /* Resource list */
+    .resource-list{list-style:none;margin:16px 0}
+    .resource-list li{padding:8px 0;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:8px}
+    .resource-list li:last-child{border-bottom:none}
+
+    /* Button */
+    .btn{display:inline-block;padding:10px 22px;border-radius:8px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;transition:background .2s,transform .1s}
+    .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+    .btn-primary:hover{background:linear-gradient(135deg,#5a6fd8,#6a4090);transform:translateY(-1px);text-decoration:none}
+    .btn-outline{background:transparent;color:#667eea;border:2px solid #667eea}
+    .btn-outline:hover{background:#667eea;color:#fff;text-decoration:none}
+
+    /* Sidebar */
+    .sidebar{align-self:start}
+    .widget{background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08);padding:24px;margin-bottom:24px}
+    .widget h3{font-size:1.1rem;color:#222;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #667eea}
+    .cat-list{list-style:none}
+    .cat-list li{padding:8px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center}
+    .cat-list li:last-child{border-bottom:none}
+    .cat-badge{background:#667eea;color:#fff;border-radius:12px;padding:2px 10px;font-size:.78rem;font-weight:700}
+
+    /* Comments section */
+    .comments{background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08);padding:28px;margin-bottom:30px}
+    .comments h3{font-size:1.3rem;color:#222;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #667eea}
+
+    /* Footer */
+    .site-footer{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;text-align:center;padding:30px 20px}
+    .site-footer p{opacity:.85;margin-bottom:6px}
+    .site-footer a{color:#fff;text-decoration:underline}
+
+    /* Key concepts */
+    .concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+    .concept-card{background:#f8f9ff;border:1px solid #e0e5ff;border-radius:10px;padding:14px;text-align:center}
+    .concept-card .icon{font-size:1.8rem;margin-bottom:6px}
+    .concept-card h4{font-size:.95rem;color:#333;margin-bottom:4px}
+    .concept-card p{font-size:.82rem;color:#666}
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <h1>&#x1F4D0; Blog Educativo</h1>
+  <p>Matematicas y Fisica para todos los niveles</p>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav class="nav-bar">
+  <a href="#matematicas" class="active">&#x1F4D0; Matematicas</a>
+  <a href="#fisica">&#x1F52D; Fisica</a>
+  <a href="#recursos">&#x1F4DA; Recursos</a>
+  <a href="#comentarios">&#x1F4AC; Comentarios</a>
+</nav>
+
+<!-- ===== MAIN LAYOUT ===== -->
+<div class="container">
+
+  <!-- ===== ARTICLES ===== -->
+  <main>
+
+    <!-- ARTICLE 1: Derivadas e Integrales -->
+    <article class="card" id="matematicas">
+      <div class="card-header">
+        <span class="tag tag-math">&#x1F4D0; Matematicas</span>
+        <h2>Derivadas e Integrales: Fundamentos del Calculo</h2>
+        <p class="meta">&#x1F4C5; 2 de abril, 2026 &nbsp;|&nbsp; &#x23F1; 8 min de lectura &nbsp;|&nbsp; &#x1F464; Redaccion educativa</p>
+      </div>
+      <div class="card-body">
+        <p>El calculo diferencial e integral es una de las ramas mas importantes de las matematicas modernas. Desarrollado de forma independiente por Isaac Newton y Gottfried Leibniz en el siglo XVII, hoy es la herramienta fundamental en ciencias, ingenieria, economia y tecnologia.</p>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F4CA; Conceptos Clave</h3>
+        <div class="concept-grid">
+          <div class="concept-card">
+            <div class="icon">&#x2206;</div>
+            <h4>Limite</h4>
+            <p>Base del calculo. Valor al que se aproxima una funcion.</p>
+          </div>
+          <div class="concept-card">
+            <div class="icon">&#x1D451;&#x2044;&#x1D451;&#x1D465;</div>
+            <h4>Derivada</h4>
+            <p>Tasa de cambio instantanea de una funcion.</p>
+          </div>
+          <div class="concept-card">
+            <div class="icon">&#x222B;</div>
+            <h4>Integral</h4>
+            <p>Acumulacion de una cantidad a lo largo de un intervalo.</p>
+          </div>
+          <div class="concept-card">
+            <div class="icon">&#x221E;</div>
+            <h4>TFC</h4>
+            <p>Teorema fundamental que une derivada e integral.</p>
+          </div>
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F4D0; Formulas Esenciales</h3>
+
+        <p><strong>Definicion de la derivada:</strong></p>
+        <div class="formula">
+          <strong>f'(x)</strong> = lim [f(x+h) - f(x)] / h &nbsp;&nbsp;&nbsp; (cuando h -&gt; 0)
+        </div>
+
+        <p><strong>Reglas de derivacion:</strong></p>
+        <div class="formula">
+          Potencia:&nbsp;&nbsp; d/dx [x^n] = n * x^(n-1)<br>
+          Producto:&nbsp; d/dx [u*v] = u'v + uv'<br>
+          Cociente:&nbsp; d/dx [u/v] = (u'v - uv') / v^2<br>
+          Cadena:&nbsp;&nbsp;&nbsp; d/dx [f(g(x))] = f'(g(x)) * g'(x)
+        </div>
+
+        <p><strong>Integral definida (Teorema Fundamental del Calculo):</strong></p>
+        <div class="formula">
+          <strong>Integral[a,b] f(x)dx</strong> = F(b) - F(a)<br><br>
+          Integrales basicas:<br>
+          Integral x^n dx = x^(n+1)/(n+1) + C &nbsp;&nbsp;[n != -1]<br>
+          Integral e^x dx = e^x + C<br>
+          Integral sen(x) dx = -cos(x) + C
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F3AC; Video Explicativo</h3>
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/WsQQvHm4lSw" title="Introduccion al Calculo - Derivadas e Integrales" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F517; Recursos para Practicar</h3>
+        <ul class="resource-list">
+          <li>&#x1F4D6; <a href="https://es.khanacademy.org/math/calculus-1" target="_blank" rel="noopener">Khan Academy - Calculo 1 en espanol</a></li>
+          <li>&#x1F4CA; <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">Desmos - Calculadora grafica interactiva</a></li>
+          <li>&#x1F9EE; <a href="https://www.symbolab.com" target="_blank" rel="noopener">Symbolab - Resolutor de derivadas e integrales</a></li>
+          <li>&#x1F4BB; <a href="https://www.geogebra.org/calculator" target="_blank" rel="noopener">GeoGebra - Visualizador de funciones</a></li>
+        </ul>
+
+        <br>
+        <a href="https://es.khanacademy.org/math/calculus-1" class="btn btn-primary" target="_blank" rel="noopener">Practicar en Khan Academy &#x1F680;</a>
+        &nbsp;
+        <a href="https://www.desmos.com/calculator" class="btn btn-outline" target="_blank" rel="noopener">Abrir Desmos &#x1F4CA;</a>
+      </div>
+    </article>
+
+    <!-- ARTICLE 2: Leyes de Newton -->
+    <article class="card" id="fisica">
+      <div class="card-header">
+        <span class="tag tag-physics">&#x1F52D; Fisica</span>
+        <h2>Las Tres Leyes de Newton: Base de la Mecanica Clasica</h2>
+        <p class="meta">&#x1F4C5; 1 de abril, 2026 &nbsp;|&nbsp; &#x23F1; 7 min de lectura &nbsp;|&nbsp; &#x1F464; Redaccion educativa</p>
+      </div>
+      <div class="card-body">
+        <p>Las Leyes de Newton, formuladas en 1687 en su obra <em>Principia Mathematica</em>, son los pilares de la mecanica clasica. Describen la relacion entre el movimiento de un objeto y las fuerzas que actuan sobre el, y siguen siendo validas para la mayoria de los fenomenos fisicos cotidianos.</p>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x2696;&#xFE0F; Primera Ley: Ley de Inercia</h3>
+        <p>Un objeto permanece en reposo o en movimiento rectilineo uniforme a menos que una fuerza externa neta actue sobre el.</p>
+        <div class="formula">
+          Si <strong>F_neta = 0</strong> entonces <strong>a = 0</strong><br>
+          El objeto mantiene su estado de movimiento (v = constante)
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F4AA; Segunda Ley: Ley Fundamental de la Dinamica</h3>
+        <p>La aceleracion de un objeto es directamente proporcional a la fuerza neta aplicada e inversamente proporcional a su masa.</p>
+        <div class="formula">
+          <strong>F = m * a</strong><br><br>
+          Donde:<br>
+          F = Fuerza neta (Newtons, N)<br>
+          m = Masa del objeto (kilogramos, kg)<br>
+          a = Aceleracion (metros/segundo^2, m/s^2)<br><br>
+          Equivalente: <strong>1 N = 1 kg * m/s^2</strong>
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F504; Tercera Ley: Ley de Accion y Reaccion</h3>
+        <p>Para cada accion existe una reaccion igual y opuesta. Si un objeto A ejerce una fuerza sobre B, entonces B ejerce sobre A una fuerza de igual magnitud pero sentido contrario.</p>
+        <div class="formula">
+          <strong>F_AB = -F_BA</strong><br><br>
+          |F_AB| = |F_BA|<br>
+          Misma linea de accion, sentidos opuestos
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F4DD; Ejemplo Practico: Plano Inclinado</h3>
+        <div class="formula">
+          Bloque de masa m en plano con angulo theta:<br><br>
+          Fuerza paralela al plano: <strong>F_p = m*g*sen(theta)</strong><br>
+          Fuerza normal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>N = m*g*cos(theta)</strong><br>
+          Friccion (con mu):&nbsp;&nbsp;&nbsp;&nbsp; <strong>f = mu * N = mu * m*g*cos(theta)</strong><br><br>
+          Aceleracion neta: <strong>a = g*(sen(theta) - mu*cos(theta))</strong>
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F3AC; Video Explicativo</h3>
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/kKKM8Y-u7ds" title="Leyes de Newton explicadas" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F517; Simulaciones Interactivas</h3>
+        <ul class="resource-list">
+          <li>&#x1F9EA; <a href="https://phet.colorado.edu/es/simulations/forces-and-motion-basics" target="_blank" rel="noopener">PhET - Fuerzas y movimiento (simulacion)</a></li>
+          <li>&#x1F4D6; <a href="https://es.khanacademy.org/science/physics/forces-newtons-laws" target="_blank" rel="noopener">Khan Academy - Fuerzas y Leyes de Newton</a></li>
+          <li>&#x1F4CA; <a href="https://www.geogebra.org/m/fuerzas" target="_blank" rel="noopener">GeoGebra - Dinamica y fuerzas</a></li>
+        </ul>
+
+        <br>
+        <a href="https://phet.colorado.edu/es/simulations/forces-and-motion-basics" class="btn btn-primary" target="_blank" rel="noopener">Simulacion PhET &#x1F9EA;</a>
+        &nbsp;
+        <a href="https://es.khanacademy.org/science/physics/forces-newtons-laws" class="btn btn-outline" target="_blank" rel="noopener">Ver en Khan Academy &#x1F4D6;</a>
+      </div>
+    </article>
+
+    <!-- ARTICLE 3: Movimiento Parabolico -->
+    <article class="card">
+      <div class="card-header">
+        <span class="tag tag-physics">&#x1F3AF; Fisica Aplicada</span>
+        <h2>Movimiento Parabolico: Tiro con Angulo de Elevacion</h2>
+        <p class="meta">&#x1F4C5; 31 de marzo, 2026 &nbsp;|&nbsp; &#x23F1; 9 min de lectura &nbsp;|&nbsp; &#x1F464; Redaccion educativa</p>
+      </div>
+      <div class="card-body">
+        <p>El movimiento parabolico (o tiro oblicuo) es la combinacion de un movimiento rectilineo uniforme horizontal y un movimiento uniformemente acelerado vertical. Lo encontramos a diario: en el lanzamiento de una pelota, el vuelo de proyectiles, o el movimiento de una manguera de agua.</p>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F4C9; Descomposicion del Movimiento</h3>
+        <p>La clave del movimiento parabolico es descomponerlo en dos componentes independientes:</p>
+        <div class="formula">
+          Velocidad inicial: <strong>v0</strong> con angulo <strong>theta</strong><br><br>
+          Componente horizontal: <strong>v0x = v0 * cos(theta)</strong> [constante]<br>
+          Componente vertical:&nbsp;&nbsp; <strong>v0y = v0 * sen(theta)</strong> [cambia con g]
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F4CF; Ecuaciones de Posicion</h3>
+        <div class="formula">
+          <strong>Eje X (horizontal - MRU):</strong><br>
+          x(t) = v0*cos(theta) * t<br><br>
+          <strong>Eje Y (vertical - MRUA):</strong><br>
+          y(t) = v0*sen(theta) * t - (1/2) * g * t^2<br><br>
+          Donde g = 9.8 m/s^2 (aceleracion gravitacional)
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F3C6; Magnitudes Importantes</h3>
+        <div class="formula">
+          <strong>Tiempo de vuelo:</strong><br>
+          T = 2 * v0 * sen(theta) / g<br><br>
+          <strong>Altura maxima:</strong><br>
+          H_max = (v0 * sen(theta))^2 / (2 * g)<br><br>
+          <strong>Alcance horizontal (Rango):</strong><br>
+          R = v0^2 * sen(2*theta) / g<br><br>
+          <strong>Angulo para maximo alcance:</strong><br>
+          theta = 45 grados -&gt; R_max = v0^2 / g
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F4DD; Ejemplo Numerico</h3>
+        <div class="formula">
+          Pelota lanzada con v0 = 20 m/s a theta = 30 grados<br><br>
+          v0x = 20 * cos(30) = 20 * 0.866 = <strong>17.32 m/s</strong><br>
+          v0y = 20 * sen(30) = 20 * 0.5&nbsp;&nbsp; = <strong>10.00 m/s</strong><br><br>
+          T = 2 * 10 / 9.8 = <strong>2.04 s</strong><br>
+          H_max = 10^2 / (2*9.8) = <strong>5.10 m</strong><br>
+          R = 20^2 * sen(60) / 9.8 = <strong>35.35 m</strong>
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F3AC; Video Explicativo</h3>
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/ZZ39o1rAZWY" title="Movimiento Parabolico - Tiro Oblicuo" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <h3 style="margin:20px 0 10px;color:#222">&#x1F517; Herramientas de Practica</h3>
+        <ul class="resource-list">
+          <li>&#x1F9EA; <a href="https://phet.colorado.edu/es/simulations/projectile-motion" target="_blank" rel="noopener">PhET - Simulador de movimiento parabolico</a></li>
+          <li>&#x1F4D6; <a href="https://es.khanacademy.org/science/physics/two-dimensional-motion" target="_blank" rel="noopener">Khan Academy - Movimiento en dos dimensiones</a></li>
+          <li>&#x1F4CA; <a href="https://www.geogebra.org/m/parabolico" target="_blank" rel="noopener">GeoGebra - Trayectoria parabolica interactiva</a></li>
+          <li>&#x1F9EE; <a href="https://www.wolframalpha.com" target="_blank" rel="noopener">WolframAlpha - Calculos avanzados</a></li>
+        </ul>
+
+        <br>
+        <a href="https://phet.colorado.edu/es/simulations/projectile-motion" class="btn btn-primary" target="_blank" rel="noopener">Simular Trayectoria &#x1F3AF;</a>
+        &nbsp;
+        <a href="https://es.khanacademy.org/science/physics/two-dimensional-motion" class="btn btn-outline" target="_blank" rel="noopener">Practicar en Khan &#x1F4D6;</a>
+      </div>
+    </article>
+
+    <!-- COMMENTS SECTION -->
+    <section class="comments" id="comentarios">
+      <h3>&#x1F4AC; Comentarios y Preguntas</h3>
+      <p style="color:#666;margin-bottom:16px">Tienes alguna pregunta sobre los temas? Usa el sistema de comentarios nativo de Blogger (que aparece automaticamente debajo de cada entrada) para dejar tu mensaje.</p>
+      <div style="background:#f8f9ff;border:2px dashed #667eea;border-radius:12px;padding:20px;text-align:center;color:#555">
+        <div style="font-size:2rem;margin-bottom:8px">&#x1F4AC;</div>
+        <p style="font-weight:600;margin-bottom:6px">Sistema de Comentarios de Blogger</p>
+        <p style="font-size:.9rem;color:#777">Al publicar este codigo en Blogger, el formulario de comentarios oficial aparecera aqui automaticamente debajo de cada entrada publicada.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+
+    <!-- Categories -->
+    <div class="widget">
+      <h3>&#x1F4C2; Categorias</h3>
+      <ul class="cat-list">
+        <li>
+          <a href="#matematicas">&#x1F4D0; Matematicas</a>
+          <span class="cat-badge">5</span>
+        </li>
+        <li>
+          <a href="#fisica">&#x1F52D; Fisica Clasica</a>
+          <span class="cat-badge">8</span>
+        </li>
+        <li>
+          <a href="#">&#x26A1; Electromagnetismo</a>
+          <span class="cat-badge">3</span>
+        </li>
+        <li>
+          <a href="#">&#x1F4CA; Estadistica</a>
+          <span class="cat-badge">4</span>
+        </li>
+        <li>
+          <a href="#">&#x1F300; Termodinamica</a>
+          <span class="cat-badge">2</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Featured Resources -->
+    <div class="widget" id="recursos">
+      <h3>&#x1F4DA; Recursos Destacados</h3>
+      <ul class="resource-list">
+        <li style="flex-direction:column;align-items:flex-start">
+          <strong>&#x1F4D6; Khan Academy</strong>
+          <p style="font-size:.82rem;color:#666;margin-top:4px">Cursos gratuitos de matematicas y fisica en espanol.</p>
+          <a href="https://es.khanacademy.org" target="_blank" rel="noopener" style="font-size:.82rem">Ir al sitio &#x2192;</a>
+        </li>
+        <li style="flex-direction:column;align-items:flex-start">
+          <strong>&#x1F9EA; PhET Simulations</strong>
+          <p style="font-size:.82rem;color:#666;margin-top:4px">Simulaciones interactivas de fisica y quimica.</p>
+          <a href="https://phet.colorado.edu/es" target="_blank" rel="noopener" style="font-size:.82rem">Ir al sitio &#x2192;</a>
+        </li>
+        <li style="flex-direction:column;align-items:flex-start">
+          <strong>&#x1F4CA; Desmos</strong>
+          <p style="font-size:.82rem;color:#666;margin-top:4px">Calculadora grafica avanzada y gratuita.</p>
+          <a href="https://www.desmos.com" target="_blank" rel="noopener" style="font-size:.82rem">Ir al sitio &#x2192;</a>
+        </li>
+        <li style="flex-direction:column;align-items:flex-start">
+          <strong>&#x1F310; GeoGebra</strong>
+          <p style="font-size:.82rem;color:#666;margin-top:4px">Matematicas dinamicas: algebra, geometria y calculo.</p>
+          <a href="https://www.geogebra.org" target="_blank" rel="noopener" style="font-size:.82rem">Ir al sitio &#x2192;</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Quick Tips -->
+    <div class="widget">
+      <h3>&#x1F4A1; Consejos de Estudio</h3>
+      <ul style="list-style:none">
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:.9rem;color:#555">&#x2705; Practica resolviendo problemas a diario</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:.9rem;color:#555">&#x2705; Dibuja diagramas para visualizar problemas</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:.9rem;color:#555">&#x2705; Verifica las unidades en cada paso</li>
+        <li style="padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:.9rem;color:#555">&#x2705; Usa simulaciones para intuicion fisica</li>
+        <li style="padding:8px 0;font-size:.9rem;color:#555">&#x2705; Repasa los conceptos fundamentales primero</li>
+      </ul>
+    </div>
+
+    <!-- About widget -->
+    <div class="widget" style="text-align:center">
+      <div style="font-size:3rem;margin-bottom:10px">&#x1F393;</div>
+      <h3 style="border:none;padding:0;margin-bottom:10px">Sobre este Blog</h3>
+      <p style="font-size:.88rem;color:#666;margin-bottom:14px">Contenido educativo de alta calidad sobre matematicas y fisica para estudiantes de bachillerato y universidad.</p>
+      <a href="#comentarios" class="btn btn-primary" style="width:100%;text-align:center;display:block">Contactar &#x1F4E9;</a>
+    </div>
+
+  </aside>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <p>&#x1F4D0; <strong>Blog Educativo - Matematicas y Fisica</strong></p>
+  <p>Contenido educativo gratuito para todos los niveles</p>
+  <p style="margin-top:10px;font-size:.85rem">
+    Recursos: 
+    <a href="https://es.khanacademy.org" target="_blank" rel="noopener">Khan Academy</a> &nbsp;|&nbsp; 
+    <a href="https://phet.colorado.edu/es" target="_blank" rel="noopener">PhET</a> &nbsp;|&nbsp; 
+    <a href="https://www.desmos.com" target="_blank" rel="noopener">Desmos</a> &nbsp;|&nbsp; 
+    <a href="https://www.geogebra.org" target="_blank" rel="noopener">GeoGebra</a>
+  </p>
+</footer>
+
+</body>
+</html>
